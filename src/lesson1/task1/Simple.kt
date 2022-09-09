@@ -65,7 +65,12 @@ fun main() {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int = TODO()
+fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
+    val hoursToSeconds = hours * 3600
+    val minutesToSeconds = minutes * 60
+    val elapsedTime = hoursToSeconds + minutesToSeconds + seconds
+    return elapsedTime
+}
 
 /**
  * Тривиальная (1 балл)
@@ -98,7 +103,11 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = TODO()
  * Пользователь задает целое число, больше или равно 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int = TODO()
+fun thirdDigit(number: Int): Int {
+    val minusFirstNumber = number % 1000
+    val minusOthersNumbers = minusFirstNumber/100
+    return minusOthersNumbers
+}
 
 /**
  * Простая (2 балла)
@@ -107,7 +116,22 @@ fun thirdDigit(number: Int): Int = TODO()
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = TODO()
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
+    val DepartHoursToMinutes = hoursDepart * 60
+    val DepartTimeInMinutes = DepartHoursToMinutes + minutesDepart
+    val ArriveHoursToMinutes = hoursArrive * 60
+    val ArriveTimeInMinutes = ArriveHoursToMinutes + minutesArrive
+    val answer = ArriveTimeInMinutes - DepartTimeInMinutes
+    return answer
+}
+/* Ещё одно решение этой задачи про время отправки:
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
+    val differenceHours = (hoursArrive - hoursDepart)*60
+    val summMinutes = minutesDepart + minutesArrive
+    val answer = differenceHours + summMinutes
+    reutrn answer
+*/
+
 
 /**
  * Простая (2 балла)
@@ -116,7 +140,12 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
+fun accountInThreeYears(initial: Int, percent: Int): Double {
+    val kf = (percent/100.0)+1
+    val percentSumm = kf * kf * kf
+    val answer = initial * percentSumm
+    return answer
+}
 
 /**
  * Простая (2 балла)
@@ -124,4 +153,10 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int = TODO()
+fun numberRevert(number: Int): Int {
+    val des = (number / 10) % 10
+    val sot = number % 10.0
+    val ed = (number / 100.0) % 100.0
+    val reverseNumber = sot* 100 + des * 10 + ed
+    return reverseNumber.toInt()
+}
