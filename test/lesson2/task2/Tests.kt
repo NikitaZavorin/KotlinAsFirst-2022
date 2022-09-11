@@ -19,6 +19,7 @@ class Tests {
     fun isNumberHappy() {
         assertTrue(isNumberHappy(1533))
         assertTrue(isNumberHappy(9009))
+        assertFalse(lesson2.task2.isNumberHappy(2149))
         assertFalse(isNumberHappy(3644))
     }
 
