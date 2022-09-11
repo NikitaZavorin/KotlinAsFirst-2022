@@ -31,15 +31,24 @@ class Tests {
         assertEquals(-1.41, minBiRoot(1.0, -3.0, 2.0), 1e-2)
     }
 
+    private fun assertEquals(expected: Any) {
+
+    }
+
     @Test
     @Tag("2")
     fun ageDescription() {
         assertEquals("1 год", ageDescription(1))
         assertEquals("21 год", ageDescription(21))
+        assertEquals("33 года",ageDescription(33))
         assertEquals("132 года", ageDescription(132))
+        assertEquals("4 года", ageDescription(4))
         assertEquals("12 лет", ageDescription(12))
         assertEquals("111 лет", ageDescription(111))
+        assertEquals("120 лет",ageDescription(120))
         assertEquals("199 лет", ageDescription(199))
+        assertEquals("200 лет",ageDescription(200))
+        assertEquals("221 год",ageDescription(221))
     }
 
     @Test

@@ -117,11 +117,11 @@ fun thirdDigit(number: Int): Int {
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    val DepartHoursToMinutes = hoursDepart * 60
-    val DepartTimeInMinutes = DepartHoursToMinutes + minutesDepart
-    val ArriveHoursToMinutes = hoursArrive * 60
-    val ArriveTimeInMinutes = ArriveHoursToMinutes + minutesArrive
-    val answer = ArriveTimeInMinutes - DepartTimeInMinutes
+    val departHoursToMinutes = hoursDepart * 60
+    val departTimeInMinutes = departHoursToMinutes + minutesDepart
+    val arriveHoursToMinutes = hoursArrive * 60
+    val arriveTimeInMinutes = arriveHoursToMinutes + minutesArrive
+    val answer = arriveTimeInMinutes - departTimeInMinutes
     return answer
 }
 /* Ещё одно решение этой задачи про время отправки:
