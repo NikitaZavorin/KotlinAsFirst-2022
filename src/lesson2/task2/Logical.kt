@@ -55,8 +55,11 @@ fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
 ): Boolean {
+    val x = x2 - x1
+    val y = y2 - y1
+    val r = r2 - r1
     return if (r2 < r1) false else
-        if (sqr(x2-x1) + sqr(y2-y1) <= sqr(r2-r1)) true else false
+        if (x + y > r) false else true
 }
 
 /**
@@ -68,4 +71,4 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =TODO()
