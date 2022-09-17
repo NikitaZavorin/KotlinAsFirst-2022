@@ -68,8 +68,7 @@ fun main() {
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
     val hoursToSeconds = hours * 3600
     val minutesToSeconds = minutes * 60
-    val elapsedTime = hoursToSeconds + minutesToSeconds + seconds
-    return elapsedTime
+    return hoursToSeconds + minutesToSeconds + seconds
 }
 
 /**
@@ -79,7 +78,12 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = TODO()
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
+    val sagenesInSm = sagenes * 213.36
+    val arshinsInSm = arshins * 71.12
+    val vershoksInSm = vershoks * 4.445
+    return (sagenesInSm + arshinsInSm + vershoksInSm) / 100.0
+}
 
 /**
  * Тривиальная (1 балл)
@@ -95,7 +99,9 @@ fun angleInRadian(deg: Int, min: Int, sec: Int): Double = TODO()
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = TODO()
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
+    return sqrt(abs(x1 - x2).pow(2) + abs(y1 - y2).pow(2))
+}
 
 /**
  * Простая (2 балла)
@@ -104,9 +110,9 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = TODO()
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
 fun thirdDigit(number: Int): Int {
-    val sot = number % 1000 / 100
-    return sot
+    return number % 1000 / 100
 }
+
 /**
  * Простая (2 балла)
  *
@@ -115,21 +121,10 @@ fun thirdDigit(number: Int): Int {
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    val departHoursToMinutes = hoursDepart * 60
-    val departTimeInMinutes = departHoursToMinutes + minutesDepart
-    val arriveHoursToMinutes = hoursArrive * 60
-    val arriveTimeInMinutes = arriveHoursToMinutes + minutesArrive
-    val answer = arriveTimeInMinutes - departTimeInMinutes
-    return answer
+    val departTimeInMinutes = hoursDepart * 60 + minutesDepart
+    val arriveTimeInMinutes = hoursArrive * 60 + minutesArrive
+    return arriveTimeInMinutes - departTimeInMinutes
 }
-/* Ещё одно решение этой задачи про время отправки:
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    val differenceHours = (hoursArrive - hoursDepart)*60
-    val summMinutes = minutesDepart + minutesArrive
-    val answer = differenceHours + summMinutes
-    reutrn answer
-*/
-
 
 /**
  * Простая (2 балла)
@@ -139,10 +134,8 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val kf = (percent/100.0)+1
-    val percentSumm = kf * kf * kf
-    val answer = initial * percentSumm
-    return answer
+    val kf = (percent / 100.0) + 1
+    return initial * kf.pow(3)
 }
 
 /**
@@ -152,9 +145,8 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int {
-    val des = (number / 10) % 10
-    val sot = number % 10.0
-    val ed = (number / 100.0) % 100.0
-    val reverseNumber = sot* 100 + des * 10 + ed
-    return reverseNumber.toInt()
+    val dozens = (number / 10) % 10
+    val hundreds = number % 10
+    val units = (number / 100) % 100
+    return hundreds * 100 + dozens * 10 + units
 }

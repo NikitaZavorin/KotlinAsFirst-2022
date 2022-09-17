@@ -70,10 +70,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    return if (age in 105..120)"$age лет" else
+    return if (age in 105..120) "$age лет" else
         if (age == 1 || age > 20 && age % 10 == 1 || age == 101 || age > 120 && age % 10 == 1) "$age год" else
-            if (age in 2..4 || age > 20 && age % 10 in 2..4 || age in 102..104 || age > 120 && age % 10 in 2..4)"$age года" else "$age лет"
+            if (age in 2..4 || age > 20 && age % 10 in 2..4 || age in 102..104 || age > 120 && age % 10 in 2..4) "$age года" else "$age лет"
 }
+
 /**
  * Простая (2 балла)
  *
@@ -92,10 +93,10 @@ fun timeForHalfWay(
     val halfWay = (s1 + s2 + s3) / 2.0
     val t_1 = halfWay / v1
     val t_2 = (halfWay - s1) / v2 + t1
-    val t_3 = (halfWay - s1 - s2 ) / v3 + t1 + t2
+    val t_3 = (halfWay - s1 - s2) / v3 + t1 + t2
     return if (s1 >= halfWay) t_1 else
-        (if (s1 + s2 >= halfWay) t_2 else
-            if (s1 + s2 + s3 >= halfWay) t_3 else 0) as Double
+        if (s1 + s2 >= halfWay) t_2 else
+            if (s1 + s2 + s3 >= halfWay) t_3 else 0.0
 }
 
 /**
@@ -148,21 +149,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return if (a < b && b < c && c < d) -1 else
-        if (a < c && c < b && b < d) b-c else
-            if (a < c && c < d && d < b) d-c else
-                if (c < a && a < b && b < d) b-a else
-                    if (c < a && a < d && d < b) d-a else
-                        if (c < d && d < a && a < b) -1 else
-                            if (c == b && a < c && b < d) 0 else
-                                if (d == b && a < c && c < d) b-c else
-                                    if (a == c && a < b && b < d) b-a else
-                                        if (c == d && a < c && d < b) b else
-                                            if (a == b && b < d && d == c ) -1 else
-                                                if (a == c && c < d && d == b) b-a else
-                                                    if (a==b && b==c && c==d) a else
-                                                        if ( a == b && b == c && c == d || b == c && c == d && a < b) 0 else
-                                                            if (a == c && c == d && a < b || a == b && b == c && a < d  ) 0 else
-                                                                if (d == c && a == b && d < b || a == b && d == c && b < d) -1 else
-                                                                    if (a==b && b==d && c < a) a else -1
+    return if (min(b, d) - max(a, c) < 0) -1 else
+        if (b == d && a == c && b == d ) a else min(b,d) - max(a,c )
 }

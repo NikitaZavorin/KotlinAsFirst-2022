@@ -3,6 +3,8 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import lesson4.task1.abs
+import kotlin.math.*
 
 /**
  * Пример
@@ -22,8 +24,8 @@ fun isNumberHappy(number: Int): Boolean {
     val ed = number % 10
     val des = number % 100 / 10
     val sot = number % 1000 / 100
-    val tis= number / 1000
-    return if (tis + sot == des + ed ) true else false
+    val tis = number / 1000
+    return if (tis + sot == des + ed) true else false
 }
 
 /**
@@ -55,11 +57,7 @@ fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
 ): Boolean {
-    val x = x2 - x1
-    val y = y2 - y1
-    val r = r2 - r1
-    return if (r2 < r1) false else
-        if (x + y > r) false else true
+    return if (sqrt(abs(sqr(x1 - x2)) + abs(sqr(y1 - y2))) + r1 <= r2) true else false
 }
 
 /**
@@ -71,4 +69,8 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    return if (max(a, b) <= max(r, s) && min(a, b) <= min(r, s)) true else
+        if (max(a, c) <= max(r, s) && min(a, c) <= min(r, s)) true else
+            if (max(b, c) <= max(r, s) && min(b, c) <= min(r, s)) true else false
+}
