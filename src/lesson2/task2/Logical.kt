@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import lesson1.task1.trackLength
 import lesson4.task1.abs
 import kotlin.math.*
 
@@ -21,11 +22,11 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    val ed = number % 10
-    val des = number % 100 / 10
-    val sot = number % 1000 / 100
-    val tis = number / 1000
-    return if (tis + sot == des + ed) true else false
+    val units = number % 10
+    val dozens = number % 100 / 10
+    val hundreds = number % 1000 / 100
+    val thousands = number / 1000
+    return if (thousands + hundreds == dozens + units) true else false
 }
 
 /**
@@ -57,7 +58,7 @@ fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
 ): Boolean {
-    return if (sqrt(abs(sqr(x1 - x2)) + abs(sqr(y1 - y2))) + r1 <= r2) true else false
+    return if (trackLength(x1,y1,x2,y2) + r1 <= r2) true else false
 }
 
 /**
