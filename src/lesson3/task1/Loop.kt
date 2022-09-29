@@ -223,7 +223,7 @@ fun revert(n: Int): Int {
     }
     return rev
 }
-
+//Я ГУЛЬ
 /**
  * Средняя (3 балла)
  *
