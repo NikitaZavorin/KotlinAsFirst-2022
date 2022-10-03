@@ -5,6 +5,7 @@ package lesson3.task1
 import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -137,7 +138,6 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var number = n
     for (i in 2..n) {
         if (i < n && n % i == 0) return n / i
     }
@@ -283,7 +283,7 @@ fun squareSequenceDigit(n: Int): Int {
     var answer2 = 0
     if (number > 1) {
         for (i in 0 until number) {
-            answer1 = sqr(i + 1) * ((number - i) * 10)
+            answer1 = sqr(i + 1) * (10.toFloat().pow(number - i).toInt())
             answer2 += answer1 / 10
         }
         return answer2
