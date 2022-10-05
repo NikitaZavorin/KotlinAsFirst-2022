@@ -283,8 +283,8 @@ fun squareSequenceDigit(n: Int): Int {
     var answer2 = 0
     if (number > 1) {
         for (i in 0 until number) {
-            answer1 = sqr(i + 1) * (10.toFloat().pow(number - i).toInt())
-            answer2 += answer1 / 10
+            answer1 = sqr(i + 1) * (10.toFloat().pow(digitNumber(number) - i).toInt())
+            answer2 += answer1
         }
         return answer2
     } else return 1
