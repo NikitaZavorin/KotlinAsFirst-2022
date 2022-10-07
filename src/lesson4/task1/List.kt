@@ -121,12 +121,10 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    return if (v.isNotEmpty()) {
-        sqrt(v.map { it * it }.sum())
-    } else 0.0
-}
-
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
+//    return if (v.isNotEmpty()) {
+//        sqrt(v.map { it * it }.sum())
+//    } else 0.0
 /**
  * Простая (2 балла)
  *
@@ -148,15 +146,20 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     val meanList = mean(list)
-    when {
-        list.isEmpty() -> 0.0
-        else -> for (i in 0 until list.size) {
-            list[i] -= meanList
-        }
+    if (list.isNotEmpty()) for (i in 0 until list.size) {
+        list[i] -= meanList
     }
+    else 0.0
     return list
 }
-
+//    val meanList = mean(list)
+//    when {
+//        list.isEmpty() -> 0.0
+//        else -> for (i in 0 until list.size) {
+//            list[i] -= meanList
+//        }
+//    }
+//    return list
 /**
  * Средняя (3 балла)
  *
@@ -174,7 +177,6 @@ fun times(a: List<Int>, b: List<Int>): Int {
     }
     return list
 }
-
 /**
  * Средняя (3 балла)
  *
@@ -183,16 +185,15 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    var answer = 0
-    when {
-        p.isEmpty() -> 0
-        else -> for (i in 0 until p.size)
-            answer += p[i] * x.toFloat().pow(i).toInt()
-    }
-    return answer
-}
-
+fun polynom(p: List<Int>, x: Int): Int = p.mapIndexed { index, i -> i * x.toDouble().pow(index).toInt() }.sum()
+//p.mapIndexed { index, i -> i * pow(x, index) }.sum()
+//    var answer = 0
+//    when {
+//        p.isEmpty() -> 0
+//        else -> for (i in 0 until p.size)
+//            answer += p[i] * x.toFloat().pow(i).toInt()
+//    }
+//    return answer
 /**
  * Средняя (3 балла)
  *
@@ -204,15 +205,19 @@ fun polynom(p: List<Int>, x: Int): Int {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    when {
-        list.isEmpty() -> 0
-        else -> for (i in 1 until list.size) {
-            list[i] += list[i - 1]
-        }
+    if (list.isNotEmpty()) for (i in 1 until list.size) {
+        list[i] += list[i - 1]
     }
+    else 0
     return list
 }
-
+//    when {
+//        list.isEmpty() -> 0
+//        else -> for (i in 1 until list.size) {
+//            list[i] += list[i - 1]
+//        }
+//    }
+//    return list
 /**
  * Средняя (3 балла)
  *
@@ -241,6 +246,7 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
+
 /**
  * Средняя (3 балла)
  *

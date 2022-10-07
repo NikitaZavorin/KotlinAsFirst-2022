@@ -57,9 +57,8 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean {
-    return trackLength(x1, y1, x2, y2) + r1 <= r2
-}
+): Boolean = trackLength(x1, y1, x2, y2) + r1 <= r2
+
 
 /**
  * Средняя (3 балла)
@@ -70,14 +69,11 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    return when {
-        max(a, b) <= max(r, s) && min(a, b) <= min(r, s) -> true
-        max(a,c) <= max(r,s) && min(a,c) <= min(r,s) -> true
-        max(b,c) <= max(r,s) && min(b,c) <= min(r,s) -> true
-        else -> false
-    }
-
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = when {
+    max(a, b) <= max(r, s) && min(a, b) <= min(r, s) -> true
+    max(a, c) <= max(r, s) && min(a, c) <= min(r, s) -> true
+    max(b, c) <= max(r, s) && min(b, c) <= min(r, s) -> true
+    else -> false
 }
 // return if (max(a, b) <= max(r, s) && min(a, b) <= min(r, s)) true else
 //        if (max(a, c) <= max(r, s) && min(a, c) <= min(r, s)) true else

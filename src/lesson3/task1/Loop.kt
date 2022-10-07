@@ -137,12 +137,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    for (i in 2..n) {
-        if (i < n && n % i == 0) return n / i
-    }
-    return 1
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -181,23 +176,33 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var maxOfmn = max(m, n)
-    var minOfmn = min(m, n)
-    var nok = 1
-    if (maxOfmn % minOfmn == 0) {
-        return maxOfmn
-    } else {
-        while (!(isPrime(minOfmn))) {
-            if (maxOfmn % minDivisor(minOfmn) == 0) {
-                nok *= minDivisor(minOfmn)
-                maxOfmn /= minDivisor(minOfmn)
-            }
-            minOfmn /= minDivisor(minOfmn)
-        }
+    var m1 = m
+    var n1 = n
+    var maxOfmn = 0
+    var minOfmn = 0
+    while (m1 != n1) {
+        maxOfmn = max(m1, n1)
+        minOfmn = min(m1, n1)
+        m1 = maxOfmn - minOfmn
+        n1 = minOfmn
     }
-    return n * m / nok
+    return m * n / m1
 }
-
+//    var maxOfmn = max(m, n)
+//    var minOfmn = min(m, n)
+//    var nok = 1
+//    if (maxOfmn % minOfmn == 0) {
+//        return maxOfmn
+//    } else {
+//        while (!(isPrime(minOfmn))) {
+//            if (maxOfmn % minDivisor(minOfmn) == 0) {
+//                nok *= minDivisor(minOfmn)
+//                maxOfmn /= minDivisor(minOfmn)
+//            }
+//            minOfmn /= minDivisor(minOfmn)
+//        }
+//    }
+//    return n * m / nok
 /**
  * Средняя (3 балла)
  *
@@ -278,16 +283,20 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var number = n
-    var answer1 = 0
-    var answer2 = 0
-    if (number > 1) {
-        for (i in 0 until number) {
-            answer1 = sqr(i + 1) * (10.toFloat().pow(digitNumber(number) - i).toInt())
-            answer2 += answer1
+    var dNumber = 0
+    var sqr = 0
+    var len = 0
+    var answer = 0
+    for (i in 1..n) {
+        sqr = i * i
+        len += digitNumber(sqr)
+        dNumber = len - n
+        if (dNumber >= 0) {
+            answer = (sqr / 10.0.toFloat().pow(dNumber).toInt()) % 10
+            break
         }
-        return answer2
-    } else return 1
+    }
+    return answer
 }
 
 /**
@@ -299,4 +308,19 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var dNumber = 0
+    var fib = 0
+    var len = 0
+    var answer = 0
+    for (i in 1..n) {
+        fib = fib(i)
+        len += digitNumber(fib)
+        dNumber = len - n
+        if (dNumber >= 0) {
+            answer = (fib / 10.0.toFloat().pow(dNumber).toInt()) % 10
+            break
+        }
+    }
+    return answer
+}
