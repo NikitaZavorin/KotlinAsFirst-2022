@@ -130,11 +130,11 @@ fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    return if (list.isNotEmpty()) {
+fun mean(list: List<Double>): Double =
+    if (list.isNotEmpty()) {
         list.sum() / list.size
     } else 0.0
-}
+
 
 /**
  * Средняя (3 балла)
@@ -146,10 +146,9 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     val meanList = mean(list)
-    if (list.isNotEmpty()) for (i in 0 until list.size) {
+    for (i in 0 until list.size) {
         list[i] -= meanList
     }
-    else 0.0
     return list
 }
 //    val meanList = mean(list)
@@ -177,6 +176,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
     }
     return list
 }
+
 /**
  * Средняя (3 балла)
  *
@@ -205,10 +205,9 @@ fun polynom(p: List<Int>, x: Int): Int = p.mapIndexed { index, i -> i * x.toDoub
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    if (list.isNotEmpty()) for (i in 1 until list.size) {
+    for (i in 1 until list.size) {
         list[i] += list[i - 1]
     }
-    else 0
     return list
 }
 //    when {
@@ -254,7 +253,15 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val n1 = mutableListOf<Int>()
+    var n = n
+    while (n > 0) {
+        n1.add( n % base)
+        n /= base
+    }
+    return n1.reversed()
+}
 
 /**
  * Сложная (4 балла)
