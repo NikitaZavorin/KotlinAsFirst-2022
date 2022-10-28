@@ -97,21 +97,15 @@ fun fib(n: Int): Int {
     var n1 = 1
     var n2 = 1
     var n3 = 0
-    var n4 = 0
-    if (n < 1) {
-        return 0
-    } else if (n == 1 || n == 2) {
-        return 1
-    } else {
-        for (i in 3..n) {
-            n3 = n1 + n2
-            n1 = n2
-            n2 = n3
-            //fib(n-1)+ fib(n-2)
-        }
-        return n3
+    if (n < 1) return 0
+    if (n == 1 || n == 2) return 1
+    for (i in 3..n) {
+        n3 = n1 + n2
+        n1 = n2
+        n2 = n3
+        //fib(n-1)+ fib(n-2)
     }
-    return 0
+    return n3
 }
 // if (n < 1){
 //        return 0

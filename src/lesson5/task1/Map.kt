@@ -96,7 +96,16 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
+    val answer = mutableMapOf<Int, List<String>>()
+    for ((key, value) in grades) {
+        answer[value] = when {
+            answer[value] == null -> mutableListOf(key)
+            else -> answer[value]!! + key
+        }
+    }
+    return answer
+}
 
 /**
  * Простая (2 балла)
@@ -154,8 +163,19 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
-
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val res = mapA.toMutableMap()
+    for ((key, value) in mapB) {
+        if (res.containsKey(key) && value != res[key]) {
+            val new = res[key] + ", ${value}"
+            res[key] = new
+        } else {
+            res[key] = value
+        }
+    }
+    return res
+}
+//SHIFT + F6
 /**
  * Средняя (4 балла)
  *

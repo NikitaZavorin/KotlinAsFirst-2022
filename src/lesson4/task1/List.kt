@@ -255,10 +255,14 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
  */
 fun convert(n: Int, base: Int): List<Int> {
     val n1 = mutableListOf<Int>()
-    var n = n
-    while (n > 0) {
-        n1.add(n % base)
-        n /= base
+    var n12 = n
+    if (n12 == 0) {
+        n1.add(0)
+    } else {
+        while (n12 > 0) {
+            n1.add(n12 % base)
+            n12 /= base
+        }
     }
     return n1.reversed()
 }
@@ -275,7 +279,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String = TODO()
-
+// convert ( nm base).jointToSting (separator=" "){if (it >= 10)"$"{'A' +it -10}" else "$it
 /**
  * Средняя (3 балла)
  *
