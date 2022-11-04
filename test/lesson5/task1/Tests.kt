@@ -227,6 +227,13 @@ class Tests {
                 "печенье"
             )
         )
+        assertEquals(
+            "Саня",
+            lesson5.task1.findCheapestStuff(
+                mapOf("Никита" to ("чокопай" to 100000.0), "Саня" to ("чокопай" to 1000.0)),
+                "чокопай"
+            )
+        )
     }
 
     @Test
