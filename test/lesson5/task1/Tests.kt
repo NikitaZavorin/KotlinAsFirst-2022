@@ -259,6 +259,10 @@ class Tests {
             emptyMap<String, Int>(),
             extractRepeats(listOf("a", "b", "c"))
         )
+        assertEquals(
+            emptyMap<String,Int>(),
+            extractRepeats(listOf<String>())
+        )
     }
 
     @Test

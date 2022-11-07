@@ -1,5 +1,6 @@
 package lesson6.task1
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Tag
@@ -29,6 +30,19 @@ class Tests {
         assertEquals("10:00:00", timeSecondsToStr(36000))
         assertEquals("11:34:45", timeSecondsToStr(41685))
         assertEquals("23:59:59", timeSecondsToStr(86399))
+    }
+    @Test
+    @Tag("leapYear")
+    fun leapYear(){
+        assertEquals(1, lesson6.task1.leapYear(1988))
+        assertEquals(0, lesson6.task1.leapYear(1997))
+        assertEquals(1, lesson6.task1.leapYear(1992))
+        assertEquals(0, lesson6.task1.leapYear(1700))
+        assertEquals(0, lesson6.task1.leapYear(2300))
+        assertEquals(1, lesson6.task1.leapYear(1600))
+        assertEquals(1, lesson6.task1.leapYear(2000))
+        assertEquals(0, lesson6.task1.leapYear(1900))
+        assertEquals(0, lesson6.task1.leapYear(2011))
     }
 
     @Test

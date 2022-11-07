@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import lesson3.task1.digitNumber
+import lesson4.task1.mean
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -196,7 +197,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =
-    stockPrices.groupBy({ it.first }, { it.second }).mapValues { it.value.sum() / it.value.size }
+    stockPrices.groupBy({ it.first }, { it.second }).mapValues { mean(it.value) }
 
 /**
  * Средняя (4 балла)
@@ -215,16 +216,16 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
     var money = kotlin.Int.MAX_VALUE.toDouble()
-    var Nullik: String? = null
+    var nullik: String? = null
     for ((key, value) in stuff) {
         if (value.first == kind) {
             if (value.second < money) {
                 money = value.second
-                Nullik = key
+                nullik = key
             }
         }
     }
-    return Nullik
+    return nullik
 }
 
 /**
@@ -250,10 +251,10 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.map { it }.co
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> =
-    list.groupingBy { (it.first()).toString() }.eachCount().filter { it.value != 1 }
+fun extractRepeats(list: List<String>): Map<String, Int> {
+   return if (list.isNotEmpty())list.groupingBy { (it.first()).toString() }.eachCount().filter { it.value != 1 } else mapOf<String,Int>()
 
-
+}
 /**
  * Средняя (3 балла)
  *

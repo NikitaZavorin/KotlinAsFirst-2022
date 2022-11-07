@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.NumberFormatException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +76,45 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val parts = str.split(" ")
+    val months = listOf(
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря"
+    )
+    if (parts.size == 3 && parts[1] in months) {
+        try {
+            val days = parts[0].toInt()
+            val month = months.indexOf(parts[1]) + 1
+            if ((parts[2].toInt() % 4 == 0 && parts[2].toInt() % 100 != 0 || parts[2].toInt() % 400 == 0) && month == 2 && days > 29) {
+                return ""
+            } else if (days in 1..31 && month != 2) return String.format(
+                "%02d.%02d.%d",
+                days,
+                month,
+                parts[2].toInt()
+            ) else return ""
+
+        } catch (e: NumberFormatException) {
+            return ""
+        }
+    } else return ""
+}
+
+fun leapYear(number: Int): Int {
+    val num = number
+    return if (num % 4 == 0 && num % 100 != 0 || num % 400 == 0) 1 else 0
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +126,35 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months = listOf(
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря"
+    )
+    val parts = digital.split(".")
+    if (parts.size == 3 && parts[1].toInt() in 1..12) {
+        try {
+            val days = parts[0].toInt()
+            val month = parts[1].toInt()
+            if ((parts[2].toInt() % 4 == 0 && parts[2].toInt() % 100 != 0 || parts[2].toInt() % 400 == 0) && month == 2 && days > 29) {
+                return ""
+            } else if (days in 1..31 && month != 2)
+                return ("$days ${months[month - 1]} ${parts[2]}") else return ""
+        } catch (e: NumberFormatException) {
+            return ""
+        }
+    } else return ""
+}
 
 /**
  * Средняя (4 балла)
@@ -114,8 +182,19 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
-
+fun bestLongJump(jumps: String): Int {
+    val jump = jumps.split(" ")
+    var maxJump = -1
+    for (i in jump) {
+        try {
+            if (i.toInt() > maxJump) maxJump = i.toInt()
+        } catch (e: NumberFormatException) {
+            if (i == "%" || i == "-" || i == " " || i == "") continue
+            else return -1
+        }
+    }
+    return maxJump
+}
 /**
  * Сложная (6 баллов)
  *
@@ -149,7 +228,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.toLowerCase().split(" ")
+    var ind = 0
+    for (i in 0 until parts.size - 1) {
+        if (parts[i] == parts[i + 1]) return ind
+        ind += parts[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
