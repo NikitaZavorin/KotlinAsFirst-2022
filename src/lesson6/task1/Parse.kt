@@ -2,6 +2,7 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
 import java.lang.NumberFormatException
 
 // Урок 6: разбор строк, исключения
@@ -96,15 +97,14 @@ fun dateStrToDigit(str: String): String {
         try {
             val days = parts[0].toInt()
             val month = months.indexOf(parts[1]) + 1
-            if ((parts[2].toInt() % 4 == 0 && parts[2].toInt() % 100 != 0 || parts[2].toInt() % 400 == 0) && month == 2 && days > 29) {
-                return ""
-            } else if (days in 1..31 && month != 2) return String.format(
+            val year = parts[2].toInt()
+            if (days > daysInMonth(month, year)) return ""
+            return String.format(
                 "%02d.%02d.%d",
                 days,
                 month,
-                parts[2].toInt()
-            ) else return ""
-
+                year
+            )
         } catch (e: NumberFormatException) {
             return ""
         }
@@ -146,10 +146,9 @@ fun dateDigitToStr(digital: String): String {
         try {
             val days = parts[0].toInt()
             val month = parts[1].toInt()
-            if ((parts[2].toInt() % 4 == 0 && parts[2].toInt() % 100 != 0 || parts[2].toInt() % 400 == 0) && month == 2 && days > 29) {
-                return ""
-            } else if (days in 1..31 && month != 2)
-                return ("$days ${months[month - 1]} ${parts[2]}") else return ""
+            val year = parts[2].toInt()
+            if (days > daysInMonth(month, year)) return ""
+            return String.format("$days ${months[month - 1]} ${year}")
         } catch (e: NumberFormatException) {
             return ""
         }
@@ -195,6 +194,7 @@ fun bestLongJump(jumps: String): Int {
     }
     return maxJump
 }
+
 /**
  * Сложная (6 баллов)
  *
