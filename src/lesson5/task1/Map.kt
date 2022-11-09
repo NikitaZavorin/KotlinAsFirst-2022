@@ -216,16 +216,15 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
     var money = kotlin.Int.MAX_VALUE.toDouble()
-    var nullik: String? = null
     for ((key, value) in stuff) {
-        if (value.first == kind) {
-            if (value.second < money) {
-                money = value.second
-                nullik = key
-            }
+        if (value.first == kind) money = minOf(money, value.second)
+    }
+    if (stuff.containsValue(kind to money)) {
+        for ((key, value) in stuff) {
+            if (value == (kind to money)) return key
         }
     }
-    return nullik
+    return null
 }
 
 /**
@@ -237,7 +236,8 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.map { it.toUpperCase() }.containsAll(word.toUpperCase().toList())
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    chars.map { it.toUpperCase() }.containsAll(word.toUpperCase().toList())
 
 /**
  * Средняя (4 балла)
@@ -252,9 +252,14 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.map { it.toUp
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-   return if (list.isNotEmpty())list.groupingBy { (it.first()).toString() }.eachCount().filter { it.value != 1 } else mutableMapOf<String,Int>()
+    val answer = mutableMapOf<String, Int>()
+    for (i in list) {
+        answer[i] = answer.getOrDefault(i, 0) + 1
+    }
+    return answer.filter { it.value != 1 }
 
 }
+//=list.groupingBy { (it.first()).toString() }.eachCount().filter { it.value != 1 }
 /**
  * Средняя (3 балла)
  *
