@@ -4,6 +4,8 @@ package lesson5.task1
 
 import lesson3.task1.digitNumber
 import lesson4.task1.mean
+import kotlin.math.max
+import kotlin.math.min
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -327,7 +329,19 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var answer = Pair(-1, -1)
+    for (i in list) {
+        val dif = number - i
+        if (number >= i && list.contains(dif)) {
+            if (dif == i && list.indexOf(i) != list.lastIndexOf(i))
+                answer = Pair(min(list.indexOf(i), list.lastIndexOf(i)), max(list.indexOf(i), list.lastIndexOf(i)))
+            else if (dif != i) answer =
+                Pair(minOf(list.indexOf(i), list.indexOf(dif)), max(list.indexOf(i), list.indexOf(dif)))
+        }
+    }
+    return answer
+}
 
 /**
  * Очень сложная (8 баллов)

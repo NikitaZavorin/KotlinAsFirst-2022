@@ -68,7 +68,7 @@ fun main() {
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
     val hoursToSeconds = hours * 3600
     val minutesToSeconds = minutes * 60
-    return hoursToSeconds + minutesToSeconds + seconds
+    return hoursToSeconds + minutesToSeconds +seconds
 }
 
 /**

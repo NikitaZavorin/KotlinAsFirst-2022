@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import ru.spbstu.wheels.NullableMonad.filter
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -52,7 +53,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
     }
     writer.close()
 }
-
+// [a-яё]
 /**
  * Простая (8 баллов)
  *
@@ -63,7 +64,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+  TODO()
 }
 
 /**

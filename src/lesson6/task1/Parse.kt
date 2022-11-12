@@ -51,18 +51,19 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println("Введите время в формате ЧЧ:ММ:СС")
-    val line = readLine()
-    if (line != null) {
-        val seconds = timeStrToSeconds(line)
-        if (seconds == -1) {
-            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        } else {
-            println("Прошло секунд с начала суток: $seconds")
-        }
-    } else {
-        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
-    }
+//    println("Введите время в формате ЧЧ:ММ:СС")
+//    val line = readLine()
+//    if (line != null) {
+//        val seconds = timeStrToSeconds(line)
+//        if (seconds == -1) {
+//            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
+//        } else {
+//            println("Прошло секунд с начала суток: $seconds")
+//        }
+//    } else {
+//        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
+//    }
+    dateDigitToStr("\\\"cd\\\"\"")
 }
 
 
@@ -142,18 +143,19 @@ fun dateDigitToStr(digital: String): String {
         "декабря"
     )
     val parts = digital.split(".")
-    if (parts.size == 3 && parts[1].toInt() in 1..12) {
-        try {
+    try {
+        if (parts.size == 3 && parts[1].toInt() in 1..12) {
             val days = parts[0].toInt()
             val month = parts[1].toInt()
             val year = parts[2].toInt()
             if (days > daysInMonth(month, year)) return ""
-            return String.format("$days ${months[month - 1]} ${year}")
-        } catch (e: NumberFormatException) {
-            return ""
-        }
-    } else return ""
+            return String.format("$days ${months[month - 1]} $year")
+        } else return ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
 }
+
 
 /**
  * Средняя (4 балла)
