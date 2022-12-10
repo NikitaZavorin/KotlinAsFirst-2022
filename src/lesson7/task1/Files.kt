@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import kotlin.math.max
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -120,8 +121,18 @@ fun sibilants(inputName: String, outputName: String) {
  * 4) Число строк в выходном файле должно быть равно числу строк во входном (в т. ч. пустых)
  *
  */
+
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var maxl = -1
+    File(inputName).forEachLine {
+        maxl = max(maxl, it.trim().length)
+    }
+    File(inputName).forEachLine {
+        val space = ((maxl - it.trim().length) / 2).toInt()
+        writer.write(" ".repeat(space) + it.trim() + "\n")
+    }
+    writer.close()
 }
 
 /**
