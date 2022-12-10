@@ -66,10 +66,9 @@ fun deleteMarked(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     File(inputName).bufferedReader()
         .forEachLine {
-            val answer =
-                it.replace(" ", "")
-            if (!Regex("""_*[А-яё]*[а,,,.,_](\s)*""").matches(answer))
-                    writer.write(it + "\n")
+            if (!it.startsWith("_")) {
+                writer.write(it + "\n")
+            }
         }
     writer.close()
 }
