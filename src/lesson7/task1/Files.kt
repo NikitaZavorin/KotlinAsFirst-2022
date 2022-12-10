@@ -68,7 +68,7 @@ fun deleteMarked(inputName: String, outputName: String) {
         .forEachLine {
             val answer =
                 it.replace(" ", "")
-            if (!Regex("""_+[А-яё]*[,,.](\s)*""").matches(answer))
+            if (!Regex("""_*[А-яё]*[а,,,.,_](\s)*""").matches(answer))
                     writer.write(it + "\n")
         }
     writer.close()
