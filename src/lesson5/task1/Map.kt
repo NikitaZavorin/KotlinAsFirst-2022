@@ -217,7 +217,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var money = kotlin.Int.MAX_VALUE.toDouble()
+    var money = kotlin.Double.MAX_VALUE
     for ((key, value) in stuff) {
         if (value.first == kind) money = minOf(money, value.second)
     }
@@ -330,17 +330,15 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    var answer = Pair(-1, -1)
-    for (i in list) {
-        val dif = number - i
-        if (number >= i && list.contains(dif)) {
-            if (dif == i && list.indexOf(i) != list.lastIndexOf(i))
-                answer = Pair(min(list.indexOf(i), list.lastIndexOf(i)), max(list.indexOf(i), list.lastIndexOf(i)))
-            else if (dif != i) answer =
-                Pair(minOf(list.indexOf(i), list.indexOf(dif)), max(list.indexOf(i), list.indexOf(dif)))
+    for (first in 0 until list.size) {
+        for (second in 0 until list.size) {
+            val num = number - list[first]
+            when {
+                first != second && list[second] == num -> return first to second
+            }
         }
     }
-    return answer
+    return -1 to -1
 }
 
 /**
