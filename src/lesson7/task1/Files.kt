@@ -189,7 +189,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
 fun top20Words(inputName: String): Map<String, Int> {
     val answer = mutableMapOf<String, Int>()
     File(inputName).forEachLine { line ->
-        val word = line.split(Regex("""[^A-zА-яё]""")).filter { it.contains(Regex("""[А-яё]|\w""")) }
+        val word = line.split(Regex("""[^A-zА-яёЁ]""")).filter { it.contains(Regex("""[А-яёЁ]|\w""")) }
         for (i in word) {
             val w = i.lowercase()
             if (w in answer) answer[w] = answer[w]!! + 1 else answer[w] = 1
