@@ -129,7 +129,7 @@ fun centerFile(inputName: String, outputName: String) {
         maxl = max(maxl, it.trim().length)
     }
     File(inputName).forEachLine {
-        val space = ((maxl - it.trim().length) / 2).toInt()
+        val space = ((maxl - it.trim().length) / 2)
         writer.write(" ".repeat(space) + it.trim() + "\n")
     }
     writer.close()
@@ -186,7 +186,19 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    val answer = mutableMapOf<String, Int>()
+    File(inputName).forEachLine { line ->
+        val word = line.split(Regex("""[^A-zА-яё]""")).filter { it.contains(Regex("""[А-яё]|\w""")) }
+        for (i in word) {
+            val w = i.lowercase()
+            if (w in answer) answer[w] = answer[w]!! + 1 else answer[w] = 1
+        }
+    }
+    val sort = answer.values.sortedDescending().toList()
+    return answer.filter { it.value >= (if (sort.size >= 20) sort[19] else 0) }
+}
+
 
 /**
  * Средняя (14 баллов)
