@@ -85,8 +85,19 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
-
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val answer = mutableMapOf<String, Int>()
+    val inputN = File(inputName).readLines().joinToString().lowercase()
+    for (word in substrings) {
+        val w = word.lowercase()
+        answer[word] = 0 // answer[word] до этого имеет тип null
+        for (i in 0..inputN.length - word.length) {
+            if (inputN.substring(i, i + word.length) == w) answer[word] = answer[word]!! + 1
+        }
+    }
+    return answer
+}
+// 41
 /**
  * Средняя (12 баллов)
  *
