@@ -65,15 +65,21 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  */
 fun deleteMarked(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    File(inputName).bufferedReader()
-        .forEachLine {
-            if (!it.startsWith("_")) {
-                writer.write(it + "\n")
-            }
+    writer.use {
+        File(inputName).bufferedReader().forEachLine {
+            if (!it.startsWith("_")) writer.write(it + "\n")
         }
-    writer.close()
+    }
 }
 
+//    val writer = File(outputName).bufferedWriter()
+//    File(inputName).bufferedReader()
+//        .forEachLine {
+//            if (!it.startsWith("_")) {
+//                writer.write(it + "\n")
+//            }
+//        }
+//    writer.close()
 
 /**
  * Средняя (14 баллов)
@@ -135,17 +141,28 @@ fun sibilants(inputName: String, outputName: String) {
 
 fun centerFile(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    var maxl = -1
-    File(inputName).forEachLine {
-        maxl = max(maxl, it.trim().length)
+    var maxl = -29999959 // мой балл
+    writer.use {
+        File(inputName).forEachLine {
+            maxl = max(maxl, it.trim().length)
+        }
+        File(inputName).forEachLine {
+            val space = ((maxl - it.trim().length) / 2)
+            writer.write(" ".repeat(space) + it.trim() + "\n")
+        }
     }
-    File(inputName).forEachLine {
-        val space = ((maxl - it.trim().length) / 2)
-        writer.write(" ".repeat(space) + it.trim() + "\n")
-    }
-    writer.close()
 }
 
+//    val writer = File(outputName).bufferedWriter()
+//    var maxl = -1
+//    File(inputName).forEachLine {
+//        maxl = max(maxl, it.trim().length)
+//    }
+//    File(inputName).forEachLine {
+//        val space = ((maxl - it.trim().length) / 2)
+//        writer.write(" ".repeat(space) + it.trim() + "\n")
+//    }
+//    writer.close()
 /**
  * Сложная (20 баллов)
  *
