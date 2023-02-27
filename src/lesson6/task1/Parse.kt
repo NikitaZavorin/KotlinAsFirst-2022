@@ -50,21 +50,20 @@ fun timeSecondsToStr(seconds: Int): String {
 /**
  * Пример: консольный ввод
  */
-fun main() {
-//    println("Введите время в формате ЧЧ:ММ:СС")
-//    val line = readLine()
-//    if (line != null) {
-//        val seconds = timeStrToSeconds(line)
-//        if (seconds == -1) {
-//            println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-//        } else {
-//            println("Прошло секунд с начала суток: $seconds")
-//        }
-//    } else {
-//        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
+//fun main() {
+//println("Введите время в формате ЧЧ:ММ:СС")
+//val line = readLine()
+/// if (line != null) {
+// val seconds = timeStrToSeconds(line)
+//if (seconds == -1) {
+//    println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
+//} else {
+//      println("Прошло секунд с начала суток: $seconds")
 //    }
-    dateDigitToStr("\\\"cd\\\"\"")
-}
+//} else {
+//    println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
+//  }
+//}
 
 
 /**
@@ -303,3 +302,75 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+
+fun myFun(table: Map<String, Int>, taxes: String): Collection<Any> {
+    val answer = mutableMapOf<String, Int>()
+    for (i in taxes.split("\n")) {
+        if (Regex("[а-я ]*-[а-я ]*-\\d+").matches(i)) {
+            val (name, type, prof) = i.split("-")
+            answer[name] = prof.toInt() * (table[type] ?: 13) / 100
+        } else throw IllegalAccessException("")
+    }
+    return answer.entries.sortedByDescending { it.value }.map { it.value }
+}
+
+
+fun cars(car: String, gasStations: String): Collection<Any> {
+    val answer = mutableMapOf<String, String>()
+    val part = gasStations.split(";")
+    println(part[0])
+    for (i in part) {
+        if (Regex("""([А-я\s]|[A-z\s])+\:(\s(([А-я\s]+\d+)|([А-я\s]+)) - \d+(\.\d+)*;)*""").matches(i)) {
+            val (name, gas) = i.split(":")
+            val (first, second, tretiy) = gas.split(";")
+            val (vidf, salef) = first.split("-")
+            val (vids, sales) = second.split("-")
+            val (vidt, salet) = tretiy.split("-")
+        } else throw IllegalAccessException("")
+    }
+    return listOf()
+}
+
+
+//fun grade(names: String): Collection<Any> {
+//  val s = names.trimMargin()
+//s.split("\n").forEach { line ->
+//  if (!Regex("""""").matches(line)) throw IllegalAccessException("")
+//}
+// s.split("\n").sortedBy { line ->
+//   val grades = Regex("""\d""").findAll(line).map { it.value.toInt() }
+// grades.average()
+//}.take(2).map { line ->
+//  line.split("-").first().trim()
+//}
+//}
+
+fun nalogii(taxes: String, money: Int): Any {
+    val answer = mutableListOf<Int>()
+    var nalog = mutableListOf<String>()
+    var f = mutableListOf<String>()
+    var summa = 0
+    var bilo = 0
+    var pers = 0
+    var ff = mutableMapOf<String, String>()
+    if (Regex("""(\d+ y.e. - \d%; )*(\d+ y.e. - \d+%); else - \d+%""").matches(taxes)) {
+        nalog = taxes.split("; ").toMutableList()
+        for (i in nalog) {
+            var (moned, gg) = i.split(Regex("""( y.e. - )+|(else - )+"""))
+            ff[moned] = gg
+        }
+        for ((key, value) in ff) {
+            pers = value.replace("%", "").toInt()
+            var gotovo = key.toInt()
+            if (money > gotovo) {
+                summa += (money - gotovo) * pers / 100
+            } else
+                summa += (gotovo - bilo) * pers / 100
+            bilo = gotovo
+        }
+    } else throw IllegalAccessException("")
+    return summa
+}
+
+//println(nalogii("20000 y.e. - 0%; 40000 y.e. - 5%; 60000 y.e. - 10%; else - 25%", 100000))

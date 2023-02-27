@@ -3,7 +3,10 @@
 package lesson7.task1
 
 import java.io.File
+import java.lang.IllegalArgumentException
+import java.util.IllegalFormatException
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -66,7 +69,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
 fun deleteMarked(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     writer.use {
-        File(inputName).bufferedReader().forEachLine {
+        File(inputName).forEachLine {
             if (!it.startsWith("_")) writer.write(it + "\n")
         }
     }
@@ -95,10 +98,9 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val answer = mutableMapOf<String, Int>()
     val inputN = File(inputName).readLines().joinToString().lowercase()
     for (word in substrings) {
-        val w = word.lowercase()
         answer[word] = 0 // answer[word] до этого имеет тип null
         for (i in 0..inputN.length - word.length) {
-            if (inputN.substring(i, i + word.length) == w) answer[word] = answer[word]!! + 1
+            if (inputN.substring(i, i + word.length) == word.lowercase()) answer[word] = answer[word]!! + 1
         }
     }
     return answer
@@ -511,3 +513,98 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
 
+
+fun fone(inputName: String): Collection<Any> {
+    var list = mutableListOf<String>()
+    var answer = mutableMapOf<String, Int>()
+    for (i in inputName.split("\n")) {
+        if (i matches Regex("""[А-я]\.\s[А-я\s\-]+\,\s[А-я\s]+\,\s[0-9]+""")) {
+            list += i
+        }
+    }
+    for (j in 0 until list.size) {
+        var (car, score) = list[j].split(", ")
+        if (answer.containsKey(car)) {
+            answer.put(car, answer.get(car)!! + score.toInt())
+        } else {
+            answer.put(car, score.toInt())
+        }
+    }
+    return answer.entries.sortedBy { it.value }
+}
+
+
+fun exel(inputName: String, range: String): Double {
+    var (x, y) = range.split("-")
+    var sort = '%'
+    var x1 = x[0]
+    var y1 = x[1]
+    var x2 = y[0]
+    var y2 = y[1]
+    if (x1 > x2) {
+        sort = x2
+        x2 = x1
+        x1 = sort
+    }
+    if (y1 > y2) {
+        sort = y2
+        y2 = x1
+        x1 = sort
+    }
+    var count = 0
+    var res = mutableListOf<Double>()
+    for (line in inputName.split("\n")) {
+        count++
+        var part = line.split(", ")
+        for (i in part.indices) {
+            if (('A'.toInt() + i) in x1.toInt()..x2.toInt() && count in y1.toString().toInt()..y2.toString().toInt()) {
+                res.add(part[i].toDouble())
+            }
+        }
+    }
+    println(res)
+    return (res.average() * 100.0).roundToInt() / 100.0
+}
+
+fun basStation(inputName: String, src: String, dst: String): String {
+    var res = ""
+    for (line in File(inputName).readLines()) {
+        if (line.contains(src) && line.contains(dst)) {
+            var space = 0
+            for (i in line.indices) {
+                res += line[i]
+                if (line[i + 1] == ' ') {
+                    space += 1
+                }
+                if (space == 2) {
+                    return res
+                }
+            }
+        }
+    }
+    return res
+}
+
+fun peterG(inputName: String): Any {
+    var r = 0
+    var answer = 0
+    var i = 0
+    var lines = File(inputName).readLines()
+    while (i < lines.size - 1) {
+        var parts = lines[i].split(" ")
+        var comm = parts[0]
+        var num = parts[1]
+        when {
+            comm == "ADD" -> r += num.toInt()
+            comm == "SUB" -> r -= num.toInt()
+            comm == "SHIFT" -> r.shl(num.toInt())
+        }
+        i++
+        if (comm == "GOTO" && num.toInt() > lines.size) throw IllegalArgumentException("вышел за команды")
+        if (comm == "GOTO") i = num.toInt()
+    }
+    return answer
+}
+
+
+//shl ваыыва
