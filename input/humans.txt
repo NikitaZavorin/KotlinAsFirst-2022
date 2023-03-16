@@ -1,0 +1,3 @@
+Mike is a father of John
+Mike is a father of Jack
+John is a father of Derek

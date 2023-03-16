@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.time.LocalTime
 
 class Tests {
 
@@ -122,7 +123,68 @@ Basic, Ruby, Swift.
     fun peterG() {
         assertEquals(0, peterG("input/program.txt"))
     }
+
+    @Test
+    @Tag("10213")
+    fun colors() {
+        assertEquals(Pair("GREEN", "BLUE"), colors("input/color.txt"))
+    }
+
+    @Test
+    @Tag("1232")
+    fun midM() {
+        assertEquals(Pair(listOf(0.5, -3.3), 0.15), midM("input/mid.txt"))
+    }
+
+    @Test
+    @Tag("123222")
+    fun upcomingDates() {
+        assertEquals(Pair(4, 5), upcomingDates("input/upcomingDates.txt"))
+    }
+
+    @Test
+    @Tag("776")
+    fun triangel() {
+        assertEquals(12.0, triangel("input/triangels.txt"))
+    }
+
+    @Test
+    @Tag("232")
+    fun grandFather() {
+        assertEquals(listOf(Pair("Mike", "Derek")), grandFather("input/humans.txt"))
+    }
+
+    @Test
+    @Tag("989")
+    fun abc() {
+        assertEquals("XYZ", abc("input/ABC.txt"))
+    }
+
+    @Test
+    fun calculateScore() {
+        assertEquals(
+            mapOf(
+                "Зенит" to TeamStats(gamesPlayed = 2, wins = 2, draws = 0, losses = 0, points = 6),
+                "Спартак" to TeamStats(gamesPlayed = 2, wins = 1, draws = 0, losses = 1, points = 3),
+                "Динамо" to TeamStats(gamesPlayed = 2, wins = 0, draws = 1, losses = 1, points = 1),
+                "ЦСКА" to TeamStats(gamesPlayed = 2, wins = 0, draws = 1, losses = 1, points = 1)
+            ), calculateScore("input/footballScore.txt")
+        )
+    }
+
+    @Test
+    fun findPhoneNumbers() {
+        assertEquals(
+            listOf("Мобильный +79211234567"),
+            findPhoneNumbers("input/phoneNum.txt", "Михаил Мобильный")
+        )
+    }
+    @Test
+    fun apartment(){
+        assertEquals(listOf("Школьная 12-14", "Садовая 19-1-55"),apartment("input/apartment.txt","кухня 8"))
+    }
 }
+
 
 
 

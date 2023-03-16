@@ -2,11 +2,14 @@
 
 package lesson7.task1
 
+import lesson1.task1.sqr
+import lesson2.task2.daysInMonth
 import java.io.File
 import java.lang.IllegalArgumentException
-import java.util.IllegalFormatException
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -607,4 +610,312 @@ fun peterG(inputName: String): Any {
 }
 
 
-//shl ваыыва
+//shl
+
+fun colors(inputName: String): Any {
+    var count = -2
+    val quad = mutableListOf<Pair<String, List<Int>>>()
+    val ans = mutableListOf<Pair<String, String>>()
+    File(inputName).forEachLine { line ->
+        val args = line.split(" ")
+        quad += Pair(args[0], listOf(args[1].toInt(), args[2].toInt(), args[3].toInt(), args[4].toInt()))
+    }
+    for (i in 0 until quad.size) {
+        val color1 = quad[i].first.toString()
+        val LBxI = quad[i].second[0]
+        val LByI = quad[i].second[1]
+        val RUxI = quad[i].second[2]
+        val RUyI = quad[i].second[3]
+        for (j in i until quad.size) {
+            val color2 = quad[j].first
+            val LBxJ = quad[i].second[0]
+            val LByJ = quad[i].second[1]
+            val RUxJ = quad[i].second[2]
+            val RUyJ = quad[i].second[3]
+            //if (!(LBxI > RUxJ || LBxJ > RUxI || RUyI < LByJ || RUyJ < LByI)) ans += Pair(color1, color2)
+            if (RUxI in LBxJ..RUxJ && LByJ in LByI..RUyI) {
+                ans += Pair(color1, color2)
+                count++
+            }
+
+
+        }
+    }
+    return ans[count]
+}
+
+fun midM(inputName: String): Any {
+    val xyz = mutableListOf<Pair<List<Double>, Double>>()
+    File(inputName).forEachLine { line ->
+        val parts = line.split(" ")
+        xyz += Pair(listOf(parts[0].toDouble(), parts[1].toDouble()), parts[3].toDouble())
+    }
+    var coX = 0.0
+    var coY = 0.0
+    var mm = 0.0
+    var L = 0.0
+    var l1 = 0.0
+    var l2 = 0.0
+    var max1 = 0.0
+    var count1 = 0
+    for (i in 0 until xyz.size) {
+        val x1 = xyz[i].first[0]
+        val y1 = xyz[i].first[1]
+        val m1 = xyz[i].second
+        val xm = xyz[i].first[0] * xyz[i].second
+        val ym = xyz[i].first[1] * xyz[i].second
+        coX += xm
+        coY += ym
+        mm += m1
+    }
+    val xM = coX / mm // -1.4125000000000005
+    val yM = coY / mm // 4.562500000000001
+    for (j in 0 until xyz.size) {
+        val X1 = xyz[j].first[0]
+        val Y1 = xyz[j].first[1]
+        l1 = xM - X1
+        l2 = yM - Y1
+        L = sqrt(sqr(l1) + sqr(l2))
+        if (L > max1) {
+            max1 = L
+            count1++
+        }
+    }
+    return xyz[count1]
+
+}
+
+fun upcomingDates(inputName: String): Any {
+    val line = mutableListOf<Pair<Int, Int>>()
+    var ans = mutableListOf<Pair<Int, Int>>()
+    var max1 = 370
+    var res = 0
+    var count = -1
+    var sumDays = 0
+    var answer = listOf<Int>()
+    val months = listOf(
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря"
+    )
+    File(inputName).forEachLine {
+        val parts = it.split(" ")
+        val month1 = months.indexOf(parts[1]) + 1
+        if (parts[0].toInt() <= daysInMonth(month1, 2023)) {
+            it + "\n"
+            line += Pair(parts[0].toInt(), month1)
+        }
+    }
+    for (i in 0 until line.size) {
+        var dayBefore = 0
+        val days = line[i].first
+        val month1 = line[i].second
+        for (j in 1 until month1) {
+            var ff = daysInMonth(j, 2023)
+            dayBefore += ff
+        }
+        var dayAfter = dayBefore + days
+        answer += dayAfter
+    }
+    for (day1 in 0 until line.size) {
+        val month1 = line[day1].second
+        for (day2 in day1 until line.size) {
+            val month2 = line[day2].second
+            res = abs(answer[day1] - answer[day2])
+            if (res < max1 && res > 0) {
+                max1 = res
+                ans += Pair(month1, month2)
+                count++
+
+            }
+        }
+    }
+    return ans[count]
+}
+
+fun triangel(inputName: String): Any {
+    val ran = mutableListOf<Double>()
+    var lastThree = listOf<Double>()
+    var L = 0.0
+    var cout = 0
+    var l1 = 0.0
+    var l2 = 0.0
+    var max1 = 100.0
+    val line = mutableListOf<Pair<String, List<Double>>>()
+    val ans = mutableListOf<String>()
+    File(inputName).forEachLine {
+        val parts = it.split(" ")
+        line += Pair(parts[0], listOf(parts[1].toDouble(), parts[2].toDouble()))
+    }
+    var minPer = Double.MAX_VALUE
+    var minTriangle = ""
+    for (i in 0 until line.size) {
+        val x1 = line[i].second[0]
+        val y1 = line[i].second[1]
+        for (j in i + 1 until line.size) {
+            val x2 = line[j].second[0]
+            val y2 = line[j].second[1]
+            for (k in j + 1 until line.size) {
+                val x3 = line[k].second[0]
+                val y3 = line[k].second[1]
+                val d1 = sqrt(sqr(x1 - x2) + sqr(y1 - y2))
+                val d2 = sqrt(sqr(x2 - x3) + sqr(y2 - y3))
+                val d3 = sqrt(sqr(x1 - x3) + sqr(y1 - y1))
+                val per = d1 + d2 + d3
+                if (per < minPer) {
+                    minPer = per
+                    minTriangle = "${line[i].first} ${line[j].first} ${line[k].first} $minPer"
+                }
+            }
+        }
+    }
+    println(minTriangle)
+    return minPer
+}
+
+fun grandFather(inputName: String): Any {
+    val answer = mutableListOf<Pair<String, String>>()
+    val line = mutableListOf<Pair<String, String>>()
+    File(inputName).forEachLine {
+        val parts = it.split(" is a father of ")
+        line += Pair(parts[0], parts[1])
+    }
+    for (i in 0 until line.size) {
+        val father1 = line[i].first
+        val son1 = line[i].second
+        for (j in i until line.size) {
+            val father2 = line[j].first
+            val son2 = line[j].second
+            if (son1.contains(father2)) answer += Pair(father1, son2)
+        }
+    }
+    return answer
+}
+
+fun abc(inputName: String): Any {
+    var count = -1
+    var max1 = 100.0
+    var perimetr = 0.0
+    var L12 = 0.0
+    var L23 = 0.0
+    var L13 = 0.0
+    var answer = mutableListOf<String>()
+    val line = mutableListOf<Pair<String, List<Double>>>()
+    File(inputName).forEachLine {
+        val parts = it.split(" ")
+        line += Pair(
+            parts[0],
+            listOf(
+                parts[1].toDouble(),
+                parts[2].toDouble(),
+                parts[3].toDouble(),
+                parts[4].toDouble(),
+                parts[5].toDouble(),
+                parts[6].toDouble()
+            )
+        )
+    }
+    for (i in 0 until line.size) {
+        val points = line[i].first
+        val x1 = line[i].second[0]
+        val y1 = line[i].second[1]
+        val x2 = line[i].second[2]
+        val y2 = line[i].second[3]
+        val x3 = line[i].second[4]
+        val y3 = line[i].second[5]
+        L12 = sqrt(sqr(abs(x1 - x2)) + sqr(abs(y1 - y2)))
+        L23 = sqrt(sqr(abs(x2 - x3)) + sqr(abs(y2 - y3)))
+        L13 = sqrt(sqr(abs(x1 - x3)) + sqr(abs(y1 - y3)))
+        perimetr = L12 + L23 + L13
+        if (perimetr < max1) {
+            max1 = perimetr
+            answer += points
+            count++
+
+        }
+
+    }
+    return answer[count]
+}
+
+data class TeamStats(
+    var gamesPlayed: Int = 0,
+    var wins: Int = 0,
+    var draws: Int = 0,
+    var losses: Int = 0,
+    var points: Int = 0
+)
+
+fun main() {
+
+}
+
+fun calculateScore(inputName: String): Any {
+    val teamStats = mutableMapOf<String, TeamStats>()
+    File(inputName).forEachLine {
+        val parts = it.split(" ")
+        val team1Name = parts[0]
+        val team2Name = parts[2]
+        val (team1Score, team2Score) = parts[3].split("-").map { it.toInt() }
+        val team1Stats = teamStats.getOrDefault(team1Name, TeamStats())
+        team1Stats.gamesPlayed += 1
+        if (team1Score > team2Score) {
+            team1Stats.wins += 1
+            team1Stats.points += 3
+        } else if (team1Score == team2Score) {
+            team1Stats.draws += 1
+            team1Stats.points += 1
+        } else {
+            team1Stats.losses += 1
+        }
+        teamStats[team1Name] = team1Stats
+
+        val team2Stats = teamStats.getOrDefault(team2Name, TeamStats())
+        team2Stats.gamesPlayed += 1
+        if (team2Score > team1Score) {
+            team2Stats.wins += 1
+            team2Stats.points += 3
+        } else if (team1Score == team2Score) {
+            team2Stats.draws += 1
+            team2Stats.points += 1
+        } else {
+            team2Stats.losses += 1
+        }
+        teamStats[team2Name] = team2Stats
+    }
+    return teamStats
+}
+
+fun findPhoneNumbers(inputName: String, query: String): Any {
+    val lines = File(inputName).readLines()
+    val result = mutableListOf<String>()
+    val queryParts = query.split(" ")
+    val personName = queryParts[0]
+    val phoneType = if (queryParts.size > 1) queryParts[1] else ""
+    for (line in lines) {
+        val parts = line.split(":")
+        val name = parts[0]
+        val numbers = parts[1].split(";")
+        if (name == personName) {
+            for (number in numbers) {
+                if (phoneType == "" || number.contains(phoneType)) {
+                    result.add(number.trim())
+                }
+            }
+        }
+    }
+    return result
+}
+
+fun apartment(inputName: String, query: String): Any {
+    return 9
+}
